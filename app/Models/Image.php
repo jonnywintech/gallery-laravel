@@ -3,19 +3,19 @@
 namespace App\Models;
 
 use App\Models\User;
-use App\Models\Image;
+use App\Models\Gallery;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Gallery extends Model
+class Image extends Model
 {
     use HasFactory;
 
     protected $guarded = [];
 
-    public function images()
+    public function gallery()
     {
-        return $this->hasMany(Image::class);
+        return $this->hasOne(Gallery::class);
     }
 
     public function user()

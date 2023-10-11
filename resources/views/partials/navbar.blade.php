@@ -2,52 +2,53 @@
 
     <div class="container-fluid">
 
-      <a class="navbar-brand" href="/">Galleries</a>
+        <a class="navbar-brand" href="/">Galleries</a>
 
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
+            aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
 
-        <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon"></span>
 
-      </button>
+        </button>
 
-      <div class="collapse navbar-collapse" id="navbarText">
+        <div class="collapse navbar-collapse" id="navbarText">
 
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
-          <li class="nav-item">
+                <li class="nav-item">
 
-            <a class="nav-link active" aria-current="page" href="/">Home</a>
+                    <a class="nav-link active" aria-current="page" href="/">Home</a>
 
-          </li>
+                </li>
 
-          <li class="nav-item">
+                <li class="nav-item">
 
-            <a class="nav-link" href="/login">Login</a>
+                    <a class="nav-link" href="/login">Login</a>
 
-          </li>
+                </li>
 
-          <li class="nav-item">
+                <li class="nav-item">
 
-            <a class="nav-link" href="/register">Register</a>
+                    <a class="nav-link" href="/register">Register</a>
 
-          </li>
+                </li>
 
-          <li class="nav-item">
+                <li class="nav-item">
 
-            <a class="nav-link" href="/profile">Profile</a>
+                    <a class="nav-link" href="/profile">Profile</a>
 
-          </li>
+                </li>
 
-        </ul>
+            </ul>
 
-        <span class="navbar-text">
+            <span class="navbar-text">
 
-        And here we came
+                And here we came
 
-        </span>
+            </span>
 
-      </div>
+        </div>
 
     </div>
 
-  </nav>
+</nav>
