@@ -16,8 +16,10 @@
                                     <p class="card-text">{{ $gallery->name }}</p>
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div class="btn-group">
-                                            <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                            <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                                            @auth
+                                                <a href="{{route('gallery',['id'=>$gallery->id])}}"><button type="button" class="btn btn-sm btn-outline-secondary">View</button></a>
+                                                <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                                            @endauth
                                         </div>
                                         <small class="text-body-secondary">9 mins</small>
                                     </div>

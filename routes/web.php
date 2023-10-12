@@ -24,4 +24,6 @@ Route::get('/logout', [UserController::class, 'logOff'])->name('logOff');
 Route::group(['middleware' => 'auth'], function(){
     Route::get('/profile/{id}', [UserController::class, 'profile'])->name('profile');
     Route::post('/profile/{id}', [UserController::class, 'update'])->name('update-profile');
+    Route::get('/gallery/{id}', [GalleryController::class, 'gallery'])->name('gallery');
+    Route::get('/gallery/{id}/edit', [GalleryController::class, 'edit'])->name('edit-gallery');
 });
