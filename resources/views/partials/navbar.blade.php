@@ -21,7 +21,7 @@
 
                 </li>
 
-                @if (isset($user))
+                @if (session('user_id'))
                     <li class="nav-item">
 
                         <a class="nav-link" href="/my-galleries">My Galleries</a>
@@ -29,7 +29,7 @@
                     </li>
                     <li class="nav-item">
 
-                        <a class="nav-link" href="{{route('profile',['id'=> $user->id])}}">Profile</a>
+                        <a class="nav-link" href="{{route('profile',['id'=> session('user_id')])}}">Profile</a>
 
                     </li>
                 @else

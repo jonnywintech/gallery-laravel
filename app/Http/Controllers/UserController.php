@@ -39,15 +39,17 @@ class UserController extends Controller
             $galleries = $query
                 ->orderBy('created_at', 'DESC')
                 ->paginate(10);
-
-            return view('home', compact('user', 'galleries'));
+            session()->put('user_id', $user->id);
+            return redirect('/')->with(compact('user', 'galleries'));
         }
         return redirect()->back()->withErrors('invalid credentials');
     }
 
     public function logOff()
     {
+
         Auth::logout();
+        session()->flush();
         return redirect('/');
     }
 
@@ -63,9 +65,9 @@ class UserController extends Controller
         $id = Auth::user()->id;
         $user = User::find($id);
         $valid = $request->validated();
-        if($valid){
-            foreach($valid as $key => $value){
-                if($value === null || $value === ''){
+        if ($valid) {
+            foreach ($valid as $key => $value) {
+                if ($value === null || $value === '') {
                     unset($valid[$key]);
                 }
             }
