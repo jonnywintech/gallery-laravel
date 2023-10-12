@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'test@example.com',
         ]);
 
-        Gallery::factory(10)->create();
-        Image::factory(100)->create();
+        Gallery::factory(100)->create();
+        Image::factory(1000)->create();
     }
 }

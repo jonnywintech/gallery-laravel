@@ -9,7 +9,8 @@ class GalleryController extends Controller
 {
    public function index()
    {
-    $galleries = Gallery::all();
+    $query = Gallery::query();
+    $galleries = $query->orderBy('created_at', 'DESC')->paginate(10);
     return view('home', compact('galleries'));
    }
 }
