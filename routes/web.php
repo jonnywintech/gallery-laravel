@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\GalleryController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\GalleryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,4 +16,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [GalleryController::class, 'index'])->name('home');
-// Route::get('/register', [])
+Route::get('/register', function(){return view('pages.register');});
+Route::post('/register', [UserController::class, 'store'])->name('signUp');
+Route::get('/login', function(){return view('pages.login');});
+Route::post('/login', [UserController::class, 'logOn'])->name('logOn');
+Route::get('/logout', [UserController::class, 'logOff'])->name('logOff');
+Route::group(['middleware' => 'auth'], function(){
+    Route::get('/profile/{id}', [UserController::class, 'profile'])->name('profile');
+    Route::post('/profile/{id}', [UserController::class, 'update'])->name('update-profile');
+});

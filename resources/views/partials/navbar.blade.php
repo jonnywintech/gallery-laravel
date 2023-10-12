@@ -21,30 +21,38 @@
 
                 </li>
 
-                <li class="nav-item">
+                @if (isset($user))
+                    <li class="nav-item">
 
-                    <a class="nav-link" href="/login">Login</a>
+                        <a class="nav-link" href="/my-galleries">My Galleries</a>
 
-                </li>
+                    </li>
+                    <li class="nav-item">
 
-                <li class="nav-item">
+                        <a class="nav-link" href="{{route('profile',['id'=> $user->id])}}">Profile</a>
 
-                    <a class="nav-link" href="/register">Register</a>
+                    </li>
+                @else
+                    <li class="nav-item">
 
-                </li>
+                        <a class="nav-link" href="/login">Login</a>
 
-                <li class="nav-item">
+                    </li>
 
-                    <a class="nav-link" href="/profile">Profile</a>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/register">Register</a>
+                    </li>
+                @endif
 
-                </li>
 
             </ul>
 
             <span class="navbar-text">
 
-                And here we came
 
+                @auth
+                    <a href="{{ route('logOff') }}" class="nav-link">Logout</a>
+                @endauth
             </span>
 
         </div>
