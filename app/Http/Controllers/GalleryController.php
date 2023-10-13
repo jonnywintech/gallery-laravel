@@ -24,7 +24,8 @@ class GalleryController extends Controller
         $final = $query->with(array('images' => function($q){
             $q->orderBy('order_number', 'ASC');
         }))->get();
-        dd($final);
+
+        return view('pages.images', ['gallery' => $final]);
 
     }
 }

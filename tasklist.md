@@ -7,5 +7,7 @@
 [x] register -firstane requeired | -lastname requeire | -email required | password and password confirmed 8 characters 1 digit | checkbox 
 [x] expand register 1 uppercase 1 lowercase;
 [x] login
-[] view gallery
-[] edit gallery
+[ ] view gallery
+[ ] list all images
+[ ] edit gallery
+[ ] add order of gallery
