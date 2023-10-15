@@ -33,7 +33,7 @@
                                 </ul>
                             </div>
                         @endif
-                        <div class="card mb-3">
+                        <div class="card">
                             <div class="row g-0 d-flex align-items-center">
                                 <div class="col-lg-4 d-none d-lg-flex">
                                     <img src="https://mdbootstrap.com/img/new/ecommerce/vertical/004.jpg"

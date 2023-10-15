@@ -10,4 +10,6 @@
 [x] view gallery
 [x] list all images
 [x] add order of gallery
+[x] delete gallery
 [ ] edit gallery
+[ ] create gallery
