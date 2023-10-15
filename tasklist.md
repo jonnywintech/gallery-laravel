@@ -11,5 +11,12 @@
 [x] list all images
 [x] add order of gallery
 [x] delete gallery
-[ ] edit gallery
-[ ] create gallery
+[x] edit gallery
+[x] create gallery
+[ ] move js from blade to js files
+[ ] update registration to require activation link via email
+[ ] fix manualy writen routes url for redirection
+[ ] install UnitTesting
+[ ] create few Tests
+[ ] play around with jwt token
+
