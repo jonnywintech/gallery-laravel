@@ -32,6 +32,12 @@
                         <a class="nav-link" href="{{route('profile',['id'=> session('user_id')])}}">Profile</a>
 
                     </li>
+
+                    <li class="nav-item">
+
+                        <a class="nav-link" href="{{route('get-gallery')}}">Create gallery</a>
+
+                    </li>
                 @else
                     <li class="nav-item">
 

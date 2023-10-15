@@ -29,4 +29,6 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/gallery/view/{id}', [GalleryController::class, 'viewGallery'])->name('view-gallery');
     Route::post('/gallery/{id}/edit', [GalleryController::class, 'updateGallery'])->name('update-gallery');
     Route::delete('gallery/delete/{id}', [GalleryController::class, 'destroy'])->name('delete-gallery');
+    Route::get('gallery/create',function(){return view('pages.create-gallery');})->name('get-gallery');
+    Route::post('gallery/create',[GalleryController::class, 'createGallery'])->name('create-gallery');
 });

@@ -5,15 +5,24 @@
         <div class="container">
 
             @if (isset($gallery))
-                <h1>Gallery - <input type="text" value="{{ $gallery[0]->name }}" class="gallery-name-copy ps-2"
-                        style="background-color: transparent;"><a class="btn btn-primary float-end"
-                        href="{{ url()->previous() }}" role="button">&#8592; back</a>
-                </h1>
+                <div class="input-group input-group-lg pb-2">
+                    <span class="input-group-text" id="inputGroup-sizing-lg">Gallery name</span>
+                    <input type="text" value="{{ $gallery[0]->name }}" class="gallery-name-copy ps-2 form-control"><a
+                        class="btn btn-primary float-end" href="{{ route('view-gallery', ['id'=>$gallery[0]->id]) }}" role="button">&#8592; back</a>
+                </div>
+
+                <div class="input-group mb-1">
+                    <span class="input-group-text">Cover Image:</span>
+                    <input type="text" name="cover_image" class="form-control" class="gallery-name-copy"
+                        value="{{ $gallery[0]->main_image }}">
+                </div>
+
                 <hr>
                 {{-- @dd($gallery) --}}
                 <form action="{{ route('update-gallery', ['id' => $gallery[0]->id]) }}" method="POST">
                     @csrf
                     <input type="hidden" value="{{ $gallery[0]->name }}" name="gallery_name" class="gallery-name-paste">
+                    <input type="hidden" value="{{ $gallery[0]->main_image }}" name="gallery_image" class="gallery-image-paste">
 
                     <input type="hidden" name="elementsToBeDeleted" id="elementsToBeDeleted">
                     <button type="button" class="btn btn-success my-2 add-gallery-btn">+ add new</button>
@@ -27,17 +36,17 @@
                                     <img src="{{ $image->image }}" alt="img">
                                     <div class="card-body">
                                         <div class="input-group mb-1">
-                                            <span class="input-group-text" id="inputGroup-sizing-default">URL:</span>
-                                            <input type="text" id="image-url" name="image[]" class="form-control"
+                                            <span class="input-group-text">URL:</span>
+                                            <input type="text" id="image-url" name="image[]" class="form-control" required
                                                 value="{{ $image->image }}">
                                         </div>
                                         <div class="d-flex justify-content-between align-items-center">
                                             <div class="input-group mb-1">
-                                                <span class="input-group-text" id="inputGroup-sizing-default">Image
+                                                <span class="input-group-text">Image
                                                     position:</span>
 
                                                 <input type="number" class="img-position form-control" id="position"
-                                                    name="postiion[]" value="{{ $image->order_number }}">
+                                                    name="position[]" value="{{ $image->order_number }}">
                                             </div>
                                             <div class="btn-group mb-1">
                                                 <button type="button"
@@ -149,7 +158,7 @@
                                                     type="number"
                                                     class="img-position form-control"
                                                     id="position"
-                                                    name="postiion_new[]"
+                                                    name="position_new[]"
                                                     value="${getTotalImages(this)}" />
                                                 </div>
                                                 <div class="btn-group mb-1">
