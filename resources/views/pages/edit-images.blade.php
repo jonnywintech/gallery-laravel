@@ -13,7 +13,7 @@
 
                 <div class="input-group mb-1">
                     <span class="input-group-text">Cover Image:</span>
-                    <input type="text" name="cover_image" class="form-control" class="gallery-name-copy"
+                    <input type="text" name="cover_image" class="form-control gallery-url-copy"
                         value="{{ $gallery[0]->main_image }}">
                 </div>
 
@@ -22,7 +22,7 @@
                 <form action="{{ route('update-gallery', ['id' => $gallery[0]->id]) }}" method="POST">
                     @csrf
                     <input type="hidden" value="{{ $gallery[0]->name }}" name="gallery_name" class="gallery-name-paste">
-                    <input type="hidden" value="{{ $gallery[0]->main_image }}" name="gallery_image" class="gallery-image-paste">
+                    <input type="hidden" value="{{ $gallery[0]->main_image }}" name="gallery_image" class="gallery-url-paste">
 
                     <input type="hidden" name="elementsToBeDeleted" id="elementsToBeDeleted">
                     <button type="button" class="btn btn-success my-2 add-gallery-btn">+ add new</button>
@@ -75,11 +75,14 @@
             let galleryNameCopy = document.querySelector('.gallery-name-copy');
             let galleryNamePaste = document.querySelector('.gallery-name-paste');
 
+            let galleryUrlCopy = document.querySelector('.gallery-url-copy');
+            let galleryUrlPaste = document.querySelector('.gallery-url-paste');
 
             let preparationForDelete = [];
 
             let deleteButtons = document.querySelectorAll('.delete-image');
 
+            let totalImages = document.querySelectorAll('.img-position').length+2 ?? 0;
 
 
 
@@ -112,22 +115,21 @@
                 });
 
                 deleteButtons.forEach((button, index) => {
-                    totalimages = (index + 1);
                     button.addEventListener('click', executeBtn);
                 });
 
             }
 
-            function getTotalImages(image) {
-                let totalImages = document.querySelectorAll('.img-position').length;
-                image.totalImages = totalImages;
-                return totalimages;
-            }
+
 
             reloadButtons();
 
             galleryNameCopy.addEventListener('change', () => {
                 galleryNamePaste.value = galleryNameCopy.value;
+            });
+
+            galleryUrlCopy.addEventListener('change', () => {
+                galleryUrlPaste.value = galleryUrlCopy.value;
             });
 
             let image = `
@@ -159,7 +161,7 @@
                                                     class="img-position form-control"
                                                     id="position"
                                                     name="position_new[]"
-                                                    value="${getTotalImages(this)}" />
+                                                    value="${totalImages}" />
                                                 </div>
                                                 <div class="btn-group mb-1">
                                                 <button
