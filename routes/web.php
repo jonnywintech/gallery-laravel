@@ -24,6 +24,8 @@ Route::get('/logout', [UserController::class, 'logOff'])->name('logOff');
 Route::group(['middleware' => 'auth'], function(){
     Route::get('/profile/{id}', [UserController::class, 'profile'])->name('profile');
     Route::post('/profile/{id}', [UserController::class, 'update'])->name('update-profile');
-    Route::get('/gallery/{id}', [GalleryController::class, 'gallery'])->name('gallery');
-    Route::get('/gallery/{id}/edit', [GalleryController::class, 'edit'])->name('edit-gallery');
+    Route::get('/my-galleries',[GalleryController::class, 'myGalleries'])->name('myGalleries');
+    Route::get('/gallery/edit/{id}', [GalleryController::class, 'editGallery'])->name('edit-gallery');
+    Route::get('/gallery/view/{id}', [GalleryController::class, 'viewGallery'])->name('view-gallery');
+    Route::post('/gallery/{id}/edit', [GalleryController::class, 'updateGallery'])->name('update-gallery');
 });

@@ -22,13 +22,7 @@
 <body>
     @include('partials.navbar')
     <div class="main">
-        @if (session('status_message'))
-            <div class="alert alert-info">{{ session('status_message') }}
-                <button type="button" onclick=" this.parentElement.style.display = 'none'"
-                    class="btn-close float-end" aria-label="Close"></button>
-            </div>
-            <br />
-        @endif
+        @include('partials.session-flash')
         @yield('content')
     </div>
 

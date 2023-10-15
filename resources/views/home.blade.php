@@ -17,8 +17,15 @@
                                     <div class="d-flex justify-content-between align-items-center">
                                         <div class="btn-group">
                                             @auth
-                                                <a href="{{route('gallery',['id'=>$gallery->id])}}"><button type="button" class="btn btn-sm btn-outline-secondary">View</button></a>
-                                                <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                                                <a href="{{ route('view-gallery', ['id' => $gallery->id]) }}"><button
+                                                        type="button"
+                                                        class="btn btn-sm btn-outline-secondary">View</button></a>
+                                                <a href="{{ route('edit-gallery', ['id' => $gallery->id]) }}"><button
+                                                        type="button"
+                                                        class="btn btn-sm btn-outline-secondary">Edit</button></a>
+                                                <a class="float-end" href="{{ route('edit-gallery', ['id' => $gallery->id]) }}"><button
+                                                            type="button"
+                                                            class="btn btn-sm btn-outline-secondary float-end">Delete</button></a>
                                             @endauth
                                         </div>
                                         <small class="text-body-secondary">9 mins</small>

@@ -1,5 +1,5 @@
 @extends('base.main')
-@section('title', 'Register')
+@section('title', 'Profile')
 
 @section('content')
 
