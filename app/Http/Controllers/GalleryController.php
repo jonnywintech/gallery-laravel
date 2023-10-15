@@ -55,4 +55,12 @@ class GalleryController extends Controller
     {
         dd($request);
     }
+
+    public function destroy(Request $request)
+    {
+        $gallery = Gallery::find($request->id);
+        $gallery->delete();
+
+        return redirect()->back();
+    }
 }

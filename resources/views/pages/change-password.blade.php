@@ -20,10 +20,10 @@
                                         <div class="d-flex flex-row align-items-center mb-4">
                                             <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                                             <div class="form-outline flex-fill mb-0">
-                                                <input type="text" id="form3Example1c" name='first_name'
+                                                <input type="text" name='first_name'
                                                     value="{{ old('first_name') ?? $user->first_name }}"
                                                     class="form-control">
-                                                <label class="form-label" for="form3Example1c">First Name</label>
+                                                <label class="form-label">First Name</label>
                                                 @error('first_name')
                                                     <p class='text-danger'> {{ $message }} </p>
                                                 @enderror
@@ -32,7 +32,7 @@
                                         <div class="d-flex flex-row align-items-center mb-4">
                                             <i class="fas fa-user fa-lg me-3 fa-fw"></i>
                                             <div class="form-outline flex-fill mb-0">
-                                                <input type="text" id="form3Example1c" name='last_name'
+                                                <input type="text" name='last_name'
                                                     value="{{ old('last_name') ?? $user->last_name }}" class="form-control">
                                                 <label class="form-label" for="form3Example1c">Last Name</label>
                                                 @error('last_name')
@@ -44,9 +44,9 @@
                                         <div class="d-flex flex-row align-items-center mb-4">
                                             <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                                             <div class="form-outline flex-fill mb-0">
-                                                <input type="email" id="form3Example3c" name='email'
+                                                <input type="email" name='email'
                                                     value="{{ old('email') ?? $user->email }}" class="form-control" />
-                                                <label class="form-label" for="form3Example3c">Your Email</label>
+                                                <label class="form-label">Your Email</label>
                                                 @error('email')
                                                     <p class='text-danger'> {{ $message }} </p>
                                                 @enderror
@@ -56,7 +56,7 @@
                                         <div class="d-flex flex-row align-items-center mb-4">
                                             <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
                                             <div class="form-outline flex-fill mb-0">
-                                                <input type="password" id="form3Example4c" name='password'
+                                                <input type="password" name='password'
                                                     class="form-control" new-password />
                                                 <label class="form-label" for="form3Example4c">Password</label>
                                                 @error('password')
@@ -68,9 +68,9 @@
                                         <div class="d-flex flex-row align-items-center mb-4">
                                             <i class="fas fa-key fa-lg me-3 fa-fw"></i>
                                             <div class="form-outline flex-fill mb-0">
-                                                <input type="password" id="form3Example4cd" name='password_confirmation'
+                                                <input type="password" name='password_confirmation'
                                                     class="form-control" autocomplete="new-password" />
-                                                <label class="form-label" for="form3Example4cd">Repeat your password</label>
+                                                <label class="form-label">Repeat your password</label>
                                             </div>
                                         </div>
 

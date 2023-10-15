@@ -14,22 +14,24 @@
                                 <img src="{{ $gallery->main_image }}" alt="img">
                                 <div class="card-body">
                                     <p class="card-text">{{ $gallery->name }}</p>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div class="btn-group">
-                                            @auth
-                                                <a href="{{ route('view-gallery', ['id' => $gallery->id]) }}"><button
-                                                        type="button"
-                                                        class="btn btn-sm btn-outline-secondary">View</button></a>
-                                                <a href="{{ route('edit-gallery', ['id' => $gallery->id]) }}"><button
-                                                        type="button"
-                                                        class="btn btn-sm btn-outline-secondary">Edit</button></a>
-                                                <a class="float-end" href="{{ route('edit-gallery', ['id' => $gallery->id]) }}"><button
-                                                            type="button"
-                                                            class="btn btn-sm btn-outline-secondary float-end">Delete</button></a>
-                                            @endauth
+                                    @auth
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div class="btn-group">
+                                                <a class="btn btn-sm btn-outline-secondary"
+                                                    href="{{ route('view-gallery', ['id' => $gallery->id]) }}"
+                                                    role="button">View</a>
+                                                <a class="btn btn-sm btn-outline-primary"
+                                                    href="{{ route('edit-gallery', ['id' => $gallery->id]) }}"
+                                                    role="button">Edit</a>
+                                            </div>
+                                            {{-- <a class="btn btn-sm btn-outline-danger float-end" href="{{ route('edit-gallery', ['id' => $gallery->id]) }}" role="button">Delete</a> --}}
+                                            <button type="button" class="btn btn-sm btn-outline-danger gallery-id-copy"
+                                                data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                                gallery_id="{{ $gallery->id }}">
+                                                Delete
+                                            </button>
                                         </div>
-                                        <small class="text-body-secondary">9 mins</small>
-                                    </div>
+                                    @endauth
                                 </div>
                             </div>
                         </div>
@@ -43,4 +45,36 @@
     <div class="d-flex justify-content-center">
         {{ $galleries->links() }}
     </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Are you shure that you want to delete this gallery?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <form action="{{ route('delete-gallery', 'id') }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <input type="hidden" name="id" class="gallery-id-paste">
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const galleryIdCopy = document.querySelectorAll('.gallery-id-copy')
+        let galleryIdPaste = document.querySelector('.gallery-id-paste');
+
+        galleryIdCopy.forEach((element) => {
+            element.addEventListener('click', (e) => {
+                galleryIdPaste.value = e.target.getAttribute('gallery_id');
+            });
+        });
+    </script>
 @endsection

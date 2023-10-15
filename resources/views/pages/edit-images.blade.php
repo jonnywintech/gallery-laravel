@@ -6,7 +6,8 @@
 
             @if (isset($gallery))
                 <h1>Gallery - <input type="text" value="{{ $gallery[0]->name }}" class="gallery-name-copy ps-2"
-                        style="background-color: transparent;"><a class="btn btn-primary float-end" href="{{url()->previous()}}" role="button">&#8592; back</a>
+                        style="background-color: transparent;"><a class="btn btn-primary float-end"
+                        href="{{ url()->previous() }}" role="button">&#8592; back</a>
                 </h1>
                 <hr>
                 {{-- @dd($gallery) --}}
@@ -31,13 +32,14 @@
                                                 value="{{ $image->image }}">
                                         </div>
                                         <div class="d-flex justify-content-between align-items-center">
-                                            <div class="input-group">
+                                            <div class="input-group mb-1">
                                                 <span class="input-group-text" id="inputGroup-sizing-default">Image
                                                     position:</span>
-                                                <input type="number" class="img-position form-control" style="width: 6rem;"
-                                                    id="position" name="postiion[]" value="{{ $image->order_number }}">
+
+                                                <input type="number" class="img-position form-control" id="position"
+                                                    name="postiion[]" value="{{ $image->order_number }}">
                                             </div>
-                                            <div class="btn-group">
+                                            <div class="btn-group mb-1">
                                                 <button type="button"
                                                     class="btn btn-sm btn-outline-danger delete-image ms-1 outline-danger">Delete</button>
                                             </div>
@@ -57,8 +59,8 @@
     <script type="text/javascript">
         window.addEventListener('load', function() {
 
-            const container = document.querySelector('.injection--point');
-            const addButton = document.querySelector('.add-gallery-btn');
+            let container = document.querySelector('.injection--point');
+            let addButton = document.querySelector('.add-gallery-btn');
             let imagesToBeDeleted = document.querySelector('#elementsToBeDeleted');
 
             let galleryNameCopy = document.querySelector('.gallery-name-copy');
@@ -68,32 +70,13 @@
             let preparationForDelete = [];
 
             let deleteButtons = document.querySelectorAll('.delete-image');
-            let imagesPositions = document.querySelectorAll('.img-position');
-            let totalimages = imagesPositions.length + 1;
 
-            let image = `<div class="col">
-                    <div class="card shadow-sm">
-                        <img src="" alt="img">
-                        <div class="card-body">
-                            <label for="image-url">URL:</label>
-                            <input type="text" value="" name="image_new[]">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="btn-group align-items-center mt-2">
-                                    <label class="me-2" for="position">Image postition</label>
-                                    <input type="number" class="form-control" style="width: 6rem;"
-                                        id="position" class="img-position" name="postiion_new[]" value="${totalimages}">
-                                </div>
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-sm btn-outline-danger
-                                    delete-image ms-1 outline-danger">Delete</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>`;
+
+
+
+
 
             addButton.addEventListener('click', () => {
-                totalimages = document.querySelectorAll('.img-position').length + 1;
                 container.insertAdjacentHTML('afterbegin', image);
                 // update delete buttons
                 reloadButtons();
@@ -119,18 +102,68 @@
                     button.removeEventListener('click', executeBtn)
                 });
 
-                deleteButtons.forEach((button) => {
+                deleteButtons.forEach((button, index) => {
+                    totalimages = (index + 1);
                     button.addEventListener('click', executeBtn);
                 });
 
             }
 
+            function getTotalImages(image) {
+                let totalImages = document.querySelectorAll('.img-position').length;
+                image.totalImages = totalImages;
+                return totalimages;
+            }
 
             reloadButtons();
 
             galleryNameCopy.addEventListener('change', () => {
                 galleryNamePaste.value = galleryNameCopy.value;
             });
+
+            let image = `
+                                    <div class="col">
+                                        <div class="card shadow-sm">
+                                            <img
+                                            src="https://via.placeholder.com/640x480.png/003399?text=cats+Faker+enim"
+                                            alt="img" />
+                                            <div class="card-body">
+                                            <div class="input-group mb-1">
+                                                <span class="input-group-text" id="inputGroup-sizing-default"
+                                                >URL:</span
+                                                >
+                                                <input
+                                                type="text"
+                                                id="image-url"
+                                                name="image_new[]"
+                                                class="form-control"
+                                                value="" />
+                                            </div>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="input-group mb-1">
+                                                <span class="input-group-text" id="inputGroup-sizing-default"
+                                                    >Image position:</span
+                                                >
+
+                                                <input
+                                                    type="number"
+                                                    class="img-position form-control"
+                                                    id="position"
+                                                    name="postiion_new[]"
+                                                    value="${getTotalImages(this)}" />
+                                                </div>
+                                                <div class="btn-group mb-1">
+                                                <button
+                                                    type="button"
+                                                    class="btn btn-sm btn-outline-danger delete-image ms-1 outline-danger">
+                                                    Delete
+                                                </button>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                          `;
         })
     </script>
 @endsection
