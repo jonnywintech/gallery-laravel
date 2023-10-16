@@ -1,7 +1,7 @@
 @extends('base.main')
 @section('title', 'Galleries')
+@vite('resources/js/home.js')
 @section('content')
-
     <div class="album py-5 bg-body-tertiary">
         <div class="container">
 
@@ -67,14 +67,4 @@
             </div>
         </div>
     </div>
-    <script>
-        const galleryIdCopy = document.querySelectorAll('.gallery-id-copy')
-        let galleryIdPaste = document.querySelector('.gallery-id-paste');
-
-        galleryIdCopy.forEach((element) => {
-            element.addEventListener('click', (e) => {
-                galleryIdPaste.value = e.target.getAttribute('gallery_id');
-            });
-        });
-    </script>
 @endsection

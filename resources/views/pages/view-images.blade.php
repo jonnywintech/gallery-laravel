@@ -37,7 +37,4 @@
             @endif
         </div>
     </div>
-    {{-- <div class="d-flex justify-content-center">
-    {{ $images->links() }}
-</div> --}}
 @endsection
