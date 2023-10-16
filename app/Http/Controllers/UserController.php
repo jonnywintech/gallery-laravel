@@ -3,11 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Http\Request;
-use App\Http\Requests\RegisterRequest;
-use App\Http\Requests\UpdateRequest;
 use App\Models\Gallery;
+use Illuminate\Http\Request;
+use App\Mail\VerificationMail;
+use App\Http\Requests\UpdateRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Http\Requests\RegisterRequest;
+use Illuminate\Auth\Events\Registered;
+use Illuminate\Support\Str;
+
 
 class UserController extends Controller
 {
@@ -19,10 +24,45 @@ class UserController extends Controller
     public function store(RegisterRequest $request)
     {
         $data = $request->validated();
-        User::create($data);
-        session()->flash('status_message', "Thank you for registering, please login");
+        if ($data) {
+            $user = User::create($data);
+            Mail::to($user->email, 'godamit')->send(new VerificationMail($user));
+            session()->flash('status_message', "Thank you for registering, check your email for verification instructions");
 
-        return redirect('/');
+            return redirect('/');
+        }
+        session()->flash('status_message', "Invalid Data");
+
+        return redirect('/register');
+    }
+
+    public function validateEmail($id)
+    {
+        $user = User::findOrFail($id);
+
+        $user->is_verified = true;
+
+        $user->remember_token =  Str::random(10);
+
+        $user->email_verified_at = now();
+
+        $user->save();
+
+        return redirect('/login');
+    }
+
+    public function verification()
+    {
+
+        return view('pages.verify-email');
+    }
+
+    public function resendEmail()
+    {
+        $user = Auth::user();
+        Mail::to($user->email, 'godamit')->send(new VerificationMail($user));
+            session()->flash('status_message', "Email sent again, check your email for verification instructions");
+        return redirect()->back();
     }
 
     public function login()

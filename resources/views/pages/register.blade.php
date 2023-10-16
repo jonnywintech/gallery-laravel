@@ -40,7 +40,7 @@
                         <div class="d-flex flex-row align-items-center mb-4">
                           <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
                           <div class="form-outline flex-fill mb-0">
-                            <input type="email" name='email' class="form-control" required />
+                            <input type="email" name='email' value="{{old('email')}}" class="form-control" required />
                             <label class="form-label">Your Email</label>
                             @error('email')
                             <p class='text-danger'> {{$message}} </p>

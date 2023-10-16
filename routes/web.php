@@ -1,8 +1,11 @@
 <?php
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\GalleryController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,14 +17,23 @@ use App\Http\Controllers\GalleryController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::group(['middleare' => 'guest'], function(){
+    Route::get('/', [GalleryController::class, 'index'])->name('home');
+    Route::get('/register', function(){return view('pages.register');});
+    Route::post('/register', [UserController::class, 'store'])->name('signUp');
+    Route::get('/login', function(){return view('pages.login');})->name('login');
+    Route::post('/login', [UserController::class, 'logOn'])->name('logOn');
 
-Route::get('/', [GalleryController::class, 'index'])->name('home');
-Route::get('/register', function(){return view('pages.register');});
-Route::post('/register', [UserController::class, 'store'])->name('signUp');
-Route::get('/login', function(){return view('pages.login');});
-Route::post('/login', [UserController::class, 'logOn'])->name('logOn');
-Route::get('/logout', [UserController::class, 'logOff'])->name('logOff');
-Route::group(['middleware' => 'auth'], function(){
+});
+
+Route::group(['middleare' => 'auth'], function(){
+    Route::get('/verification', [UserController::class, 'verification'])->name('verification');
+    Route::post('/send-email', [UserController::class, 'resendEmail'])->name('resend.email');
+});
+
+
+Route::group(['middleware' => ['auth','verified:verification']], function(){
+    Route::get('/logout', [UserController::class, 'logOff'])->name('logOff');
     Route::get('/profile/{id}', [UserController::class, 'profile'])->name('profile');
     Route::post('/profile/{id}', [UserController::class, 'update'])->name('update-profile');
     Route::get('/my-galleries',[GalleryController::class, 'myGalleries'])->name('myGalleries');
@@ -32,3 +44,8 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('gallery/create',function(){return view('pages.create-gallery');})->name('get-gallery');
     Route::post('gallery/create',[GalleryController::class, 'createGallery'])->name('create-gallery');
 });
+
+Route::get('/email/verify/{id}', [UserController::class, 'validateEmail']);
+
+
+

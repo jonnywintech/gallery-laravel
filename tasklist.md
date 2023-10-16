@@ -13,10 +13,12 @@
 [x] delete gallery
 [x] edit gallery
 [x] create gallery
-[ ] move js from blade to js files
-[ ] update registration to require activation link via email
-[ ] fix manualy writen routes url for redirection
+[x] move js from blade to js files
+[x] update registration to require activation link via email
+[x] fix manualy writen routes url for redirection
+[ ] fix routes names for laravel way of writing PSR standards
 [ ] install UnitTesting
 [ ] create few Tests
 [ ] play around with jwt token
-
+[ ] docblock every function in controller also in models
+[ ] custom 404
