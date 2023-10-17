@@ -12,26 +12,35 @@
                     @foreach ($galleries as $gallery)
                         <div class="col">
                             <div class="card shadow-sm">
-                                <img src="{{ $gallery->main_image }}" alt="img">
+                                <img src="{{ $gallery->main_image }}" alt="img" style="height: 400px; object-fit:cover;">
                                 <div class="card-body">
                                     <p class="card-text">{{ $gallery->name }}</p>
                                     @auth
-                                        <div class="d-flex justify-content-between align-items-center">
+
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        @if($gallery->user_id === auth()->user()->id)
                                             <div class="btn-group">
-                                                <a class="btn btn-sm btn-outline-secondary"
-                                                    href="{{ route('view-gallery', ['id' => $gallery->id]) }}"
-                                                    role="button">View</a>
                                                 <a class="btn btn-sm btn-outline-primary"
-                                                    href="{{ route('edit-gallery', ['id' => $gallery->id]) }}"
+                                                    href="{{ route('edit.gallery', ['id' => $gallery->id]) }}"
                                                     role="button">Edit</a>
                                             </div>
-                                            {{-- <a class="btn btn-sm btn-outline-danger float-end" href="{{ route('edit-gallery', ['id' => $gallery->id]) }}" role="button">Delete</a> --}}
+                                            {{-- <a class="btn btn-sm btn-outline-danger float-end" href="{{ route('edit.gallery', ['id' => $gallery->id]) }}" role="button">Delete</a> --}}
                                             <button type="button" class="btn btn-sm btn-outline-danger gallery-id-copy"
                                                 data-bs-toggle="modal" data-bs-target="#exampleModal"
                                                 gallery_id="{{ $gallery->id }}">
                                                 Delete
                                             </button>
+                                        @else
+                                            <a class="btn btn-sm btn-outline-secondary"
+                                            href="{{ route('view.gallery', ['id' => $gallery->id]) }}"
+                                            role="button">View</a>
+                                            <button type="button" class="btn btn-outline-secondary btn-sm"
+                                                gallery_id="{{ $gallery->id }}">
+                                                Comment
+                                            </button>
+                                        @endif
                                         </div>
+
                                     @endauth
                                 </div>
                             </div>
@@ -58,7 +67,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <form action="{{ route('delete-gallery', 'id') }}" method="POST">
+                    <form action="{{ route('delete.gallery', 'id') }}" method="POST">
                         @csrf
                         @method('DELETE')
                         <input type="hidden" name="id" class="gallery-id-paste">

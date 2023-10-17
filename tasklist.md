@@ -16,7 +16,7 @@
 [x] move js from blade to js files
 [x] update registration to require activation link via email
 [x] fix manualy writen routes url for redirection
-[ ] fix routes names for laravel way of writing PSR standards
+[x] fix routes names for laravel way of writing PSR standards
 [ ] install UnitTesting
 [ ] create few Tests
 [ ] play around with jwt token

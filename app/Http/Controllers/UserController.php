@@ -54,7 +54,7 @@ class UserController extends Controller
     public function verification()
     {
 
-        return view('pages.verify-email');
+        return view('pages.user.verify-email');
     }
 
     public function resendEmail()
@@ -67,7 +67,7 @@ class UserController extends Controller
 
     public function login()
     {
-        return view('pages.login');
+        return view('user.pages.login');
     }
 
     public function logOn(Request $request)
@@ -96,7 +96,7 @@ class UserController extends Controller
     public function profile($id)
     {
         $user = Auth::user();
-        return view('pages.change-password', compact('user'));
+        return view('pages.user.change-password', compact('user'));
     }
 
     public function update(UpdateRequest $request)

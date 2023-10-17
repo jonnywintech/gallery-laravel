@@ -35,7 +35,7 @@
 
                     <li class="nav-item">
 
-                        <a class="nav-link" href="{{route('get-gallery')}}">Create gallery</a>
+                        <a class="nav-link" href="{{route('get.gallery')}}">Create gallery</a>
 
                     </li>
                 @else

@@ -14,7 +14,7 @@
 
                                     <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Change Your Data</p>
 
-                                    <form method="POST" action="{{ route('update-profile', ['id' => $user->id]) }}"
+                                    <form method="POST" action="{{ route('update.profile', ['id' => $user->id]) }}"
                                         class="mx-1 mx-md-4">
                                         @csrf
                                         <div class="d-flex flex-row align-items-center mb-4">

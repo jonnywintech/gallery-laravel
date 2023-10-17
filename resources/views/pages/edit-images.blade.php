@@ -9,7 +9,7 @@
                 <div class="input-group input-group-lg pb-2">
                     <span class="input-group-text border-primary" id="inputGroup-sizing-lg">Gallery name</span>
                     <input type="text" value="{{ $gallery[0]->name }}" class="gallery-name-copy ps-2 form-control"><a
-                        class="btn btn-primary float-end" href="{{ route('view-gallery', ['id'=>$gallery[0]->id]) }}" role="button">&#8592; back</a>
+                        class="btn btn-primary float-end" href="{{ route('view.gallery', ['id'=>$gallery[0]->id]) }}" role="button">&#8592; back</a>
                 </div>
 
                 <div class="input-group mb-1">
@@ -20,7 +20,7 @@
 
                 <hr>
                 {{-- @dd($gallery) --}}
-                <form action="{{ route('update-gallery', ['id' => $gallery[0]->id]) }}" method="POST">
+                <form action="{{ route('update.gallery', ['id' => $gallery[0]->id]) }}" method="POST">
                     @csrf
                     <input type="hidden" value="{{ $gallery[0]->name }}" name="gallery_name" class="gallery-name-paste">
                     <input type="hidden" value="{{ $gallery[0]->main_image }}" name="gallery_image" class="gallery-url-paste">

@@ -10,7 +10,7 @@
                             <div class="row justify-content-center">
                                 <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
                                     <h1 class="text-center pb-2">Create Gallery</h1>
-                                    <form method="POST" action="{{ route('create-gallery') }}">
+                                    <form method="POST" action="{{ route('create.gallery') }}">
                                         @csrf
                                         <!-- Name input -->
                                         <div class="form-outline mb-4">

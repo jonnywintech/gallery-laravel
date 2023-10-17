@@ -5,7 +5,11 @@
         <div class="container">
 
             @if (isset($gallery))
-            <h1>Gallery - {{$gallery[0]->name}} <a class="btn btn-primary float-end" href="{{route('edit-gallery',['id'=>$gallery[0]->id])}}" role="button">Edit</a></h1>
+            <h1>Gallery - {{$gallery[0]->name}}
+                @if(auth()->user()->id == $gallery[0]->id)
+                <a class="btn btn-primary float-end" href="{{route('edit.gallery',['id'=>$gallery[0]->id])}}" role="button">Edit</a>
+                @endif
+            </h1>
             <hr>
                     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3 injection--point">
                         @foreach ($gallery[0]->images as $image)
@@ -13,6 +17,7 @@
                                 <input type="hidden" name="image_id[]" class="image_id" value="{{ $image->id }}">
                                 <div class="card shadow-sm">
                                     <img src="{{ $image->image }}" alt="img">
+                                    @if(auth()->user()->id == $gallery[0]->id)
                                     <div class="card-body">
                                         <div class="input-group input-group mb-1">
                                             <span class="input-group-text" id="inputGroup-sizing-default">URL:</span>
@@ -27,6 +32,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    @endif
                                 </div>
                             </div>
                         @endforeach
