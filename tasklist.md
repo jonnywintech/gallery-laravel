@@ -17,7 +17,7 @@
 [x] update registration to require activation link via email
 [x] fix manualy writen routes url for redirection
 [x] fix routes names for laravel way of writing PSR standards
-[ ] install UnitTesting
+[x] install UnitTesting
 [ ] create few Tests
 [ ] play around with jwt token
 [ ] docblock every function in controller also in models
