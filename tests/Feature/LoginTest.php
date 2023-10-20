@@ -62,4 +62,13 @@ class LoginTest extends TestCase
         $response->assertRedirect('/');
         $this->assertAuthenticated();
     }
+
+
+    public function test_user_can_view_a_login_form()
+    {
+        $response = $this->get('/login');
+
+        $response->assertSuccessful();
+        $response->assertViewIs('pages.user.login');
+    }
 }

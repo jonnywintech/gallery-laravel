@@ -50,6 +50,8 @@ class UrlTest extends TestCase
 
     public function test_all_urls(): void
     {
+        $this->be($this->user);
+
         $filtered_routes = collect(Route::getRoutes())
             ->reject(function ($route) {
                 $route_name = $route->getName();
