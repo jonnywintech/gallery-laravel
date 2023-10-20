@@ -4,7 +4,6 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 use App\Models\User;
-use Illuminate\Support\Facades\DB;
 use function Laravel\Prompts\table;
 use Database\Seeders\DatabaseSeeder;
 
@@ -26,14 +25,15 @@ class LoginTest extends TestCase
 
         // Run seeders
         \Artisan::call('db:seed');
-      $this->user = new User();
-      $this->user->first_name = 'John';
-      $this->user->last_name = 'Wicker';
-      $this->user->email = 'john@example.com';
-      $this->user->password = password_hash('password', PASSWORD_BCRYPT);
-      $this->user->is_verified = true;
 
-      $this->user->save();
+        $this->user = new User();
+        $this->user->first_name = 'John';
+        $this->user->last_name = 'Wicker';
+        $this->user->email = 'john@example.com';
+        $this->user->password = password_hash('password', PASSWORD_BCRYPT);
+        $this->user->is_verified = true;
+
+        $this->user->save();
     }
 
     /**
@@ -43,12 +43,12 @@ class LoginTest extends TestCase
      */
 
 
-     public function testUserData(): void
-     {
+    public function testUserData(): void
+    {
         $this->assertTrue($this->user->first_name === 'John');
         $this->assertTrue($this->user->last_name === 'Wicker');
         $this->assertTrue($this->user->email === 'john@example.com');
-     }
+    }
 
     public function testLogin(): void
     {

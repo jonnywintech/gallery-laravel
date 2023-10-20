@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TestController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\GalleryController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -18,11 +19,13 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 |
 */
 Route::group(['middleare' => 'guest'], function(){
+    Route::get('/test', [TestController::class, 'index']);
     Route::get('/', [GalleryController::class, 'index'])->name('home');
     Route::get('/register', function(){return view('pages.user.register');});
     Route::post('/register', [UserController::class, 'store'])->name('signUp');
     Route::get('/login', function(){return view('pages.user.login');})->name('login');
     Route::post('/login', [UserController::class, 'logOn'])->name('logOn');
+
 
 });
 
