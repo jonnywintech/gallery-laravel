@@ -19,11 +19,11 @@ class UserComment extends Model
 
     public function gallery()
     {
-        return $this->hasMany(Gallery::class, 'gallery_id', 'id');
+        return $this->hasOne(Gallery::class, 'gallery_id', 'id');
     }
 
-    public function comment()
+    public function comments()
     {
-        return $this->hasMany(Comment::class, 'comment_id', 'id');
+        return $this->hasMany(Comment::class,'id','comment_id');
     }
 }

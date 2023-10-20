@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\GalleryController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
@@ -46,6 +47,8 @@ Route::group(['middleware' => ['auth','verified:verification']], function(){
     Route::delete('gallery/delete/{id}', [GalleryController::class, 'destroy'])->name('delete.gallery');
     Route::get('gallery/create',function(){return view('pages.create-gallery');})->name('get.gallery');
     Route::post('gallery/create',[GalleryController::class, 'createGallery'])->name('create.gallery');
+    Route::post('gallery/{id}/comment', [CommentController::class, 'create'])->name('create.comment');
+    Route::delete('gallery/{gallery_id}/comment/{comment_id}/delete', [CommentController::class, 'delete'])->name('delete.comment');
 });
 
 Route::get('/email/verify/{id}', [UserController::class, 'validateEmail']);

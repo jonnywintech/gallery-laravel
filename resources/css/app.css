@@ -1,0 +1,14 @@
+.swiper {
+    width: 100%;
+    max-width: 910px;
+    width: 100%;
+    max-height: 600px;
+}
+
+.swiper__image {
+    width: 100%;
+    max-width: 910px;
+    width: 100%;
+    max-height: 600px;
+    object-fit: cover;
+}

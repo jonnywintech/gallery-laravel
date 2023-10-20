@@ -19,7 +19,9 @@
 [x] fix routes names for laravel way of writing PSR standards
 [x] install UnitTesting
 [x] create few Tests
-[ ] create comments for logged in users
+[x] create comments for logged in users
 [ ] play around with jwt token
 [ ] docblock every function in controller also in models
 [ ] custom 404
+[ ] build docker container
+[ ] setup readme.md

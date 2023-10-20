@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Image;
 use App\Models\Gallery;
+use App\Models\UserComment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -36,7 +37,13 @@ class GalleryController extends Controller
             $q->orderBy('order_number', 'ASC');
         }))->get();
 
-        return view('pages.view-images', ['gallery' => $final]);
+        $comments = UserComment::with('comments')
+            ->with('user')
+            ->where('gallery_id', $id)
+            ->orderBy('id', 'DESC')
+            ->get();
+
+        return view('pages.view-images', ['gallery' => $final, 'comments' => $comments]);
     }
 
     public function editGallery($id)
@@ -60,7 +67,7 @@ class GalleryController extends Controller
             $gallery->save();
         }
 
-        if($gallery->gallery_image !== $request->gallery_image) {
+        if ($gallery->gallery_image !== $request->gallery_image) {
             $gallery->main_image = $request->gallery_image;
             $gallery->save();
         }
@@ -87,9 +94,9 @@ class GalleryController extends Controller
             }
         }
 
-        if(isset($request->image_new[0])){
+        if (isset($request->image_new[0])) {
             $length = count($request->image_new);
-            for ($i=0; $i < $length; $i++) {
+            for ($i = 0; $i < $length; $i++) {
                 $newImage = new Image();
                 $newImage->gallery_id = $request->id;
                 $newImage->image = $request->image_new[$i];
@@ -116,7 +123,7 @@ class GalleryController extends Controller
 
     public function createGallery(Request $request)
     {
-        if(!empty($request->gallery_name) && !empty($request->gallery_url)){
+        if (!empty($request->gallery_name) && !empty($request->gallery_url)) {
 
             $gallery = new Gallery();
             $user_id = Auth::user()->id;
@@ -133,6 +140,5 @@ class GalleryController extends Controller
 
         session()->flash('status_message', "Gallery not create fields are empty.");
         return redirect()->back();
-
     }
 }

@@ -20,6 +20,9 @@
                                     <div class="d-flex justify-content-between align-items-center">
                                         @if($gallery->user_id === auth()->user()->id)
                                             <div class="btn-group">
+                                                <a class="btn btn-sm btn-outline-secondary"
+                                                    href="{{ route('view.gallery', ['id' => $gallery->id]) }}"
+                                                    role="button">View</a>
                                                 <a class="btn btn-sm btn-outline-primary"
                                                     href="{{ route('edit.gallery', ['id' => $gallery->id]) }}"
                                                     role="button">Edit</a>

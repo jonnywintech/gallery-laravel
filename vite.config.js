@@ -9,6 +9,7 @@ export default defineConfig({
                 'resources/js/app.js',
                 'resources/js/editImages.js',
                 'resources/js/home.js',
+                'resources/js/swiperJs.js',
             ],
             refresh: true,
         }),

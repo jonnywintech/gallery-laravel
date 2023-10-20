@@ -17,6 +17,10 @@
             list-style: none;
         }
     </style>
+    <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css"
+  />
 </head>
 
 <body>
