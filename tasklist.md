@@ -4,7 +4,7 @@
 [x] query only 10 galliers per view
 [x] order galleries descending
 [x] add search bar that filter galleries
-[x] register -firstane requeired | -lastname requeire | -email required | password and password confirmed 8 characters 1 digit | checkbox 
+[x] register -firstane requeired | -lastname requeire | -email required | password and password confirmed 8 characters | checkbox 
 [x] expand register 1 uppercase 1 lowercase;
 [x] login
 [x] view gallery
@@ -21,8 +21,7 @@
 [x] create few Tests
 [x] create comments for logged in users
 [x] make function execute at corresponding controller
-[ ] play around with jwt token
-[ ] docblock every function in controller also in models
-[ ] custom 404
+[x] docblock every function in controller also in models
+[x] custom 404
 [ ] build docker container
 [ ] setup readme.md

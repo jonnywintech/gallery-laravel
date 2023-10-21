@@ -1,8 +1,10 @@
 @extends('base.main')
 @section('title', 'Galleries')
 @vite('resources/js/home.js')
+@vite('resources/css/app.css')
+
 @section('content')
-    <div class="album py-5 bg-body-tertiary">
+    <div class="album py-5 bg-body-tertiary bg__test">
         <div class="container">
 
             @if (isset($galleries) && $galleries->isNotEmpty())
