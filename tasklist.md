@@ -20,7 +20,7 @@
 [x] install UnitTesting
 [x] create few Tests
 [x] create comments for logged in users
-[ ] make function execute at corresponding controller
+[x] make function execute at corresponding controller
 [ ] play around with jwt token
 [ ] docblock every function in controller also in models
 [ ] custom 404

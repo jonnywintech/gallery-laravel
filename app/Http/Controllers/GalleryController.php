@@ -11,24 +11,47 @@ use Illuminate\Support\Facades\Auth;
 
 class GalleryController extends Controller
 {
+    /**
+     * Method index
+     *
+     *it shows all galleries
+
+     * @return void
+     */
     public function index()
     {
         $query = Gallery::query();
         $galleries = $query
             ->orderBy('created_at', 'DESC')
-            ->paginate(10);
+            ->paginate(9);
         return view('home', compact('galleries'));
     }
 
-    public function myGalleries($perPage = 10)
+    /**
+     * Method myGalleries
+     *
+     * @param $perPage $perPage
+     *
+     * list of all user galleries , with case of no pagination default is used
+     *
+     * @return void
+     */
+    public function myGalleries($perPage = 9)
     {
         $user_id = Auth::user()->id;
         $query = Gallery::where('user_id', $user_id);
-        $galleries = $query->orderBy('created_at', 'DESC')->paginate(10);
+        $galleries = $query->orderBy('created_at', 'DESC')->paginate($perPage);
 
         return view('home', compact('galleries'));
     }
 
+    /**
+     * Method view
+     *
+     * @param $id $id find gallery by id
+     *
+     * @return void
+     */
     public function view($id)
     {
         $query = Gallery::query();
@@ -46,6 +69,15 @@ class GalleryController extends Controller
         return view('pages.view-images', ['gallery' => $final, 'comments' => $comments]);
     }
 
+    /**
+     * Method edit
+     *
+     * @param $id $id of gallery
+     *
+     * return view of gallery that can be edited
+     *
+     * @return void
+     */
     public function edit($id)
     {
         $query = Gallery::query();
@@ -57,24 +89,31 @@ class GalleryController extends Controller
         return view('pages.edit-images', ['gallery' => $final]);
     }
 
+    /**
+     * Method update
+     *
+     * @param Request $request
+     *
+     * find gallery by id from request and update name and images accordingly
+     *
+     * @return void return back to the gallery page
+     */
     public function update(Request $request)
     {
-        // dd($request->all());
         DB::beginTransaction();
         $gallery = Gallery::find($request->id);
+
         if ($gallery->name !== $request->gallery_name) {
             $gallery->name =  $request->gallery_name;
-            $gallery->save();
         }
 
         if ($gallery->gallery_image !== $request->gallery_image) {
             $gallery->main_image = $request->gallery_image;
-            $gallery->save();
         }
 
         if (!empty($request->elementsToBeDeleted)) {
-            $images_ids = json_decode($request->elementsToBeDeleted);
-            $db_images = Image::whereIn('id', $images_ids)->delete();
+            $images_to_delete = json_decode($request->elementsToBeDeleted);
+            Image::whereIn('id', $images_to_delete)->delete();
         }
 
         // logic to change gallery positions;
@@ -105,12 +144,23 @@ class GalleryController extends Controller
             }
         }
 
+        $gallery->save();
+
         DB::commit();
 
         return redirect()->back();
     }
 
 
+    /**
+     * Method create
+     *
+     * takes two parameters from $request object: name and image
+     *
+     * @param Request $request  gallery_name and gallery_url to create gallery
+     *
+     * @return void
+     */
     public function create(Request $request)
     {
         if (!empty($request->gallery_name) && !empty($request->gallery_url)) {
@@ -123,15 +173,25 @@ class GalleryController extends Controller
             $gallery->main_image = $request->gallery_url;
             $gallery->save();
 
+            $final[0] = $gallery;
+
             session()->flash('status_message', "Gallery created successfully");
 
-            return redirect()->back();
+            return view('pages.edit-images', ['gallery' => $final]);
+            // return redirect()->back();
         }
 
         session()->flash('status_message', "Gallery not create fields are empty.");
         return redirect()->back();
     }
 
+    /**
+     * Method destroy
+     *
+     * @param Request $request takes gallery id
+     *
+     * @return void
+     */
     public function destroy(Request $request)
     {
         $gallery = Gallery::find($request->id);

@@ -33,11 +33,11 @@ Route::group(['middleare' => 'guest'], function(){
 Route::group(['middleare' => 'auth'], function(){
     Route::get('/verification', [UserController::class, 'verification'])->name('verification');
     Route::post('/send-email', [UserController::class, 'resendEmail'])->name('resend.email');
+    Route::get('/logout', [UserController::class, 'logOff'])->name('logOff');
 });
 
 
 Route::group(['middleware' => ['auth','verified:verification']], function(){
-    Route::get('/logout', [UserController::class, 'logOff'])->name('logOff');
     Route::get('/profile/{id}', [UserController::class, 'profile'])->name('profile');
     Route::post('/profile/{id}', [UserController::class, 'update'])->name('update.profile');
     Route::get('/my-galleries',[GalleryController::class, 'myGalleries'])->name('myGalleries');

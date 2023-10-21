@@ -10,6 +10,15 @@ use App\Http\Requests\CommentRequest;
 
 class CommentController extends Controller
 {
+    /**
+     * Method create
+     *
+     * @param CommentRequest $request takes only comment parameters
+     *
+     * create comment
+     *
+     * @return void
+     */
     public function create(CommentRequest $request)
     {
         $comment = Comment::create($request->only('comment'));
@@ -26,6 +35,15 @@ class CommentController extends Controller
         return redirect()->back();
     }
 
+    /**
+     * Method delete
+     *
+     * @param Request $request takes comment_id from request object
+     *
+     * deletes comment
+     *
+     * @return void
+     */
     public function delete(Request $request)
     {
         // dd($request);

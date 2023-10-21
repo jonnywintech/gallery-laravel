@@ -16,6 +16,13 @@ use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
+    /**
+     * Method index
+     *
+     * show registration form
+     *
+     * @return void
+     */
     public function index()
     {
         return view('pages.register');
@@ -36,6 +43,13 @@ class UserController extends Controller
         return redirect('/register');
     }
 
+    /**
+     * Method validateEmail
+     *
+     * @param $id $id takes id of user to activate user account
+     *
+     * @return void
+     */
     public function validateEmail($id)
     {
         $user = User::findOrFail($id);
@@ -51,12 +65,24 @@ class UserController extends Controller
         return redirect('/login');
     }
 
+    /**
+     * Method verification
+     *
+     * @return veiw with resend email address in case you didn't received email
+     */
     public function verification()
     {
 
         return view('pages.user.verify-email');
     }
 
+    /**
+     * Method resendEmail
+     *
+     * resend email to user
+     *
+     * @return void
+     */
     public function resendEmail()
     {
         $user = Auth::user();
@@ -65,11 +91,23 @@ class UserController extends Controller
         return redirect()->back();
     }
 
+    /**
+     * Method login
+     *
+     * @return login form
+     */
     public function login()
     {
         return view('user.pages.login');
     }
 
+    /**
+     * Method logOn
+     *
+     * @param Request $request email and password from Request object
+     *
+     * @return logged in user or error if invalid credentials
+     */
     public function logOn(Request $request)
     {
         $credentials = $request->only(['email', 'password']);
@@ -85,6 +123,11 @@ class UserController extends Controller
         return redirect()->back()->withErrors('invalid credentials');
     }
 
+    /**
+     * Method logOff
+     *
+     * @return logOff user
+     */
     public function logOff()
     {
 
@@ -93,12 +136,30 @@ class UserController extends Controller
         return redirect('/');
     }
 
+    /**
+     * Method profile
+     *
+     * @param $id takes $id to find user profile
+     *
+     * show user profile where he can update his personal informations
+     *
+     * @return void
+     */
     public function profile($id)
     {
         $user = Auth::user();
         return view('pages.user.change-password', compact('user'));
     }
 
+    /**
+     * Method update
+     *
+     * @param UpdateRequest $request Object with id
+     *
+     * find user and update information
+     *
+     * @return void
+     */
     public function update(UpdateRequest $request)
     {
         // dd($request);
