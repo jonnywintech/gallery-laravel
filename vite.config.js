@@ -10,6 +10,7 @@ export default defineConfig({
                 'resources/js/editImages.js',
                 'resources/js/home.js',
                 'resources/js/swiperJs.js',
+                'resources/js/deleteConfirmation.js',
             ],
             refresh: true,
         }),

@@ -6,10 +6,11 @@ use App\Models\Comment;
 use App\Models\UserComment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\CommentRequest;
 
 class CommentController extends Controller
 {
-    public function create(Request $request)
+    public function create(CommentRequest $request)
     {
         $comment = Comment::create($request->only('comment'));
 

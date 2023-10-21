@@ -1,6 +1,7 @@
 @extends('base.main')
 @section('title', 'Preview Gallery')
 @vite('resources/js/swiperJs.js')
+@vite('resources/js/deleteConfirmation.js')
 @vite('resources/css/app.css')
 @section('content')
     <div class="album py-5 bg-body-tertiary">
@@ -70,7 +71,7 @@
                                         </div>
                                         {{-- @dd($comment) --}}
                                         <div class="d-flex flex-row align-items-center">
-                                            <form method="POST"
+                                            <form method="POST" class="delete__form--prompt"
                                                 action="
                                             {{ route('delete.comment', ['gallery_id' => $gallery[0]->id, 'comment_id' => $comment->comments[0]->id]) }}">
                                                 @csrf
@@ -79,8 +80,9 @@
                                                 <input type="hidden" name="user_comment_id" value="{{ $comment->id }}">
 
                                                 <p class="small text-danger mb-0"><button
+                                                    type="submit" class="btn btn-sm btn-outline-danger"
                                                     @disabled(auth()->user()->id !== $gallery[0]->user_id)
-                                                    type="submit" class="btn">Delete</button></p>
+                                                    >Delete</button></p>
 
                                             </form>
 

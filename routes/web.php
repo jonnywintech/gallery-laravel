@@ -41,12 +41,12 @@ Route::group(['middleware' => ['auth','verified:verification']], function(){
     Route::get('/profile/{id}', [UserController::class, 'profile'])->name('profile');
     Route::post('/profile/{id}', [UserController::class, 'update'])->name('update.profile');
     Route::get('/my-galleries',[GalleryController::class, 'myGalleries'])->name('myGalleries');
-    Route::get('/gallery/edit/{id}', [GalleryController::class, 'editGallery'])->name('edit.gallery');
-    Route::get('/gallery/view/{id}', [GalleryController::class, 'viewGallery'])->name('view.gallery');
-    Route::post('/gallery/{id}/edit', [GalleryController::class, 'updateGallery'])->name('update.gallery');
+    Route::get('/gallery/edit/{id}', [GalleryController::class, 'edit'])->name('edit.gallery');
+    Route::get('/gallery/view/{id}', [GalleryController::class, 'view'])->name('view.gallery');
+    Route::post('/gallery/{id}/edit', [GalleryController::class, 'update'])->name('update.gallery');
     Route::delete('gallery/delete/{id}', [GalleryController::class, 'destroy'])->name('delete.gallery');
     Route::get('gallery/create',function(){return view('pages.create-gallery');})->name('get.gallery');
-    Route::post('gallery/create',[GalleryController::class, 'createGallery'])->name('create.gallery');
+    Route::post('gallery/create',[GalleryController::class, 'create'])->name('create.gallery');
     Route::post('gallery/{id}/comment', [CommentController::class, 'create'])->name('create.comment');
     Route::delete('gallery/{gallery_id}/comment/{comment_id}/delete', [CommentController::class, 'delete'])->name('delete.comment');
 });

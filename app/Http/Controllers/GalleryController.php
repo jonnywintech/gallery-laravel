@@ -29,7 +29,7 @@ class GalleryController extends Controller
         return view('home', compact('galleries'));
     }
 
-    public function viewGallery($id)
+    public function view($id)
     {
         $query = Gallery::query();
         $query = $query->where('id', $id);
@@ -46,7 +46,7 @@ class GalleryController extends Controller
         return view('pages.view-images', ['gallery' => $final, 'comments' => $comments]);
     }
 
-    public function editGallery($id)
+    public function edit($id)
     {
         $query = Gallery::query();
         $query = $query->where('id', $id);
@@ -57,7 +57,7 @@ class GalleryController extends Controller
         return view('pages.edit-images', ['gallery' => $final]);
     }
 
-    public function updateGallery(Request $request)
+    public function update(Request $request)
     {
         // dd($request->all());
         DB::beginTransaction();
@@ -105,23 +105,13 @@ class GalleryController extends Controller
             }
         }
 
-        // dd($images_to_sort);
-        // dd($request, $images_to_sort, $img_pos);
         DB::commit();
-        // DB::rollBack();
 
         return redirect()->back();
     }
 
-    public function destroy(Request $request)
-    {
-        $gallery = Gallery::find($request->id);
-        $gallery->delete();
 
-        return redirect()->back();
-    }
-
-    public function createGallery(Request $request)
+    public function create(Request $request)
     {
         if (!empty($request->gallery_name) && !empty($request->gallery_url)) {
 
@@ -139,6 +129,14 @@ class GalleryController extends Controller
         }
 
         session()->flash('status_message', "Gallery not create fields are empty.");
+        return redirect()->back();
+    }
+
+    public function destroy(Request $request)
+    {
+        $gallery = Gallery::find($request->id);
+        $gallery->delete();
+
         return redirect()->back();
     }
 }
