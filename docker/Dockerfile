@@ -1,39 +1,43 @@
-FROM php:8.2-apache
+FROM ubuntu:22.04
+
+ARG WWWGROUP
+ARG NODE_VERSION=18
+ARG POSTGRES_VERSION=15
 
 WORKDIR /var/www/html
 
-# Mod Rewrite
-RUN a2enmod rewrite
+ENV DEBIAN_FRONTEND noninteractive
+ENV TZ=UTC
 
-# Linux Library
-RUN apt-get update -y && apt-get install -y \
-    libicu-dev \
-    libmariadb-dev \
-    unzip zip \
-    zlib1g-dev \
-    libpng-dev \
-    libjpeg-dev \
-    libfreetype6-dev \
-    libjpeg62-turbo-dev \
-    libpng-dev \
-    curl
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-# Composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+RUN apt-get update \
+    && mkdir -p /etc/apt/keyrings \
+    && apt-get install -y gnupg gosu curl ca-certificates zip unzip git supervisor sqlite3 libcap2-bin libpng-dev python2 dnsutils librsvg2-bin fswatch \
+    && curl -sS 'https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x14aa40ec0831756756d7f66c4f4ea0aae5267a6c' | gpg --dearmor | tee /etc/apt/keyrings/ppa_ondrej_php.gpg > /dev/null \
+    && echo "deb [signed-by=/etc/apt/keyrings/ppa_ondrej_php.gpg] https://ppa.launchpadcontent.net/ondrej/php/ubuntu jammy main" > /etc/apt/sources.list.d/ppa_ondrej_php.list \
+    && apt-get update \
+    && apt-get install -y php8.2-cli php8.2-dev \
+       php8.2-pgsql php8.2-sqlite3 php8.2-gd php8.2-imagick \
+       php8.2-curl \
+       php8.2-imap php8.2-mysql php8.2-mbstring \
+       php8.2-xml php8.2-zip php8.2-bcmath php8.2-soap \
+       php8.2-intl php8.2-readline \
+       php8.2-ldap \
+       php8.2-msgpack php8.2-igbinary php8.2-redis php8.2-swoole \
+       php8.2-memcached php8.2-pcov php8.2-xdebug \
+    && curl -sLS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ --filename=composer
 
-# PHP Extension
-RUN docker-php-ext-install gettext intl pdo_mysql gd
-
-RUN docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg \
-    && docker-php-ext-install -j$(nproc) gd
-
-# RUN curl -sL https://deb.nodesource.com/setup_16.x | bash -
-# RUN apt-get install -y nodejs npm
-
-RUN curl -sL https://deb.nodesource.com/setup_20.x -o nodesource_setup.sh && chmod +x nodesource_setup.sh && ./nodesource_setup.sh
-
-RUN apt install -y nodejs
+RUN setcap "cap_net_bind_service=+ep" /usr/bin/php8.2
 
 COPY 000-default.conf /etc/apache2/sites-available/
 
+
+COPY start-container /usr/local/bin/start-container
+
+RUN chmod +x /usr/local/bin/start-container
+
+EXPOSE 8080
+
+ENTRYPOINT ["start-container"]
 
