@@ -1,0 +1,45 @@
+services:
+
+  laravel-gallery:
+    container_name: laravel-gallery
+    build:
+        context: ./docker
+        dockerfile: Dockerfile
+    volumes:
+        - ./:/var/www/html
+    ports:
+        - 9000:80
+    networks:
+        - gallery
+    depends_on:
+        - mysql
+
+  mysql:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: gallery
+    ports:
+        - 3396:3306
+    networks:
+        - gallery
+    volumes:
+            - db-data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    ports:
+        - 9001:80
+    environment:
+        - PMA_ARBITRARY=1
+    networks:
+        - gallery
+    depends_on:
+        - mysql
+
+
+networks:
+    gallery:
+        driver: bridge
+volumes:
+    db-data: ~
