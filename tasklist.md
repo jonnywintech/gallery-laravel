@@ -23,5 +23,5 @@
 [x] make function execute at corresponding controller
 [x] docblock every function in controller also in models
 [x] custom 404
-[ ] build docker container
+[x] build docker container
 [ ] setup readme.md
