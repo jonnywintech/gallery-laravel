@@ -34,6 +34,7 @@ COPY php.ini /etc/php/8.2/cli/conf.d/99-sail.ini
 
 
 # configuration files
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 COPY entrypoint /usr/local/bin/entrypoint
 RUN chmod +x /usr/local/bin/entrypoint
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf

@@ -8,9 +8,8 @@ services:
         volumes:
             - ./:/var/www/html
         ports:
-            - 9090:80
             - 5173:5173
-            - 5174:5174
+            - 9090:80
         depends_on:
             - mysql
         networks:
@@ -23,7 +22,6 @@ services:
 
         environment:
             - MYSQL_DATABASE=${DB_DATABASE}
-            - MYSQL_USER=${DB_USERNAME}
             - MYSQL_PASSWORD=${DB_PASSWORD}
             - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
         volumes:

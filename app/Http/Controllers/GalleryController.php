@@ -101,6 +101,7 @@ class GalleryController extends Controller
     public function update(Request $request)
     {
         DB::beginTransaction();
+        // dd($request);
         $gallery = Gallery::find($request->id);
 
         if ($gallery->name !== $request->gallery_name) {
@@ -115,6 +116,17 @@ class GalleryController extends Controller
             $images_to_delete = json_decode($request->elementsToBeDeleted);
             Image::whereIn('id', $images_to_delete)->delete();
         }
+
+        $image_ids = $request->only('image_id')['image_id'];
+        $image_url = $request->only('image')['image'];
+        // update existing image url
+        $images = Image::whereIn('id', $image_ids)->get();
+        $len = count($images);
+        for ($i = 0; $i < $len; $i++) {
+            $images[$i]->image = $image_url[$i];
+            $images[$i]->save();
+        }
+
 
         // logic to change gallery positions;
         if (isset($request->image_id)) {
@@ -132,6 +144,7 @@ class GalleryController extends Controller
                 $image->save();
             }
         }
+
 
         if (isset($request->image_new[0])) {
             $length = count($request->image_new);
